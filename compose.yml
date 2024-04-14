@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    restart: always
+    env_file: ./.env
+    ports:
+      - 5432:5432
+    volumes:
+      - ./.docker-volumes/database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      portfolio:
+        ipv4_address: 11.9.0.2
+
+  cms:
+    image: directus/directus:10.10.4
+    ports:
+      - 8055:8055
+    volumes:
+      - ./.docker-volumes/database:/directus/database
+      - ./.docker-volumes/uploads:/directus/uploads
+      - ./.docker-volumes/extensions:/directus/extensions
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      portfolio:
+        ipv4_address: 11.9.0.4
+
+  web:
+    build: ./packages/web
+    restart: always
+    volumes:
+      - ./packages/web:/app
+    env_file: .env
+    ports:
+      - 3000:3000
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      portfolio:
+        ipv4_address: 11.9.0.5
+
+networks:
+  portfolio:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 11.9.0.0/16
+          gateway: 11.9.0.1
