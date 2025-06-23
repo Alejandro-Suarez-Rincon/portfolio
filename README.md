@@ -2,4 +2,18 @@
 Porfolio using
 - NextJs
 - TailwindCSS
-- Directus
+- Django
+
+
+# Start Guide
+## First using.
+1. Run.
+    - ```
+        docker compose up --build
+        ```
+## Start Proyect
+1. Exceute Docker
+    - ```
+        docker compose up
+        ```
+
