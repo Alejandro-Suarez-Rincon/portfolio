@@ -1,26 +1,51 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0c0c0c;
+  --surface:    #141414;
+  --surface-2:  #1c1c1c;
+  --border:     rgba(255, 255, 255, 0.08);
+  --foreground: #f0f0f0;
+  --muted:      #6b6b6b;
+  --accent:     #e8e8e8;
+
+  --page-padding-x: clamp(1.25rem, 5vw, 3rem);
+  --max-content:    72rem;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface:    var(--surface);
+  --color-surface-2:  var(--surface-2);
+  --color-border:     var(--border);
   --color-foreground: var(--foreground);
+  --color-muted:      var(--muted);
+  --color-accent:     var(--accent);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base ───────────────────────────────────────────────────────────── */
+
+html {
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Layout utility ─────────────────────────────────────────────────── */
+
+.page-container {
+  width: 100%;
+  max-width: var(--max-content);
+  margin-inline: auto;
+  padding-inline: var(--page-padding-x);
 }
