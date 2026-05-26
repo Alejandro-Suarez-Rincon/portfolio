@@ -6,7 +6,8 @@ interface WorkCardProps {
 
 export function WorkCard({ work }: WorkCardProps) {
   return (
-    <div className="bg-surface border border-border rounded-lg p-6 flex flex-col gap-5">
+    <div className="bg-surface border border-border rounded-xl p-6 flex flex-col gap-5 shadow-sm
+                    transition-all duration-200 hover:border-accent/25 hover:shadow-md">
       {/* Header */}
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -24,9 +25,10 @@ export function WorkCard({ work }: WorkCardProps) {
               work.company
             )}
           </h3>
-          <p className="text-sm text-muted mt-0.5">{work.role}</p>
+          <p className="text-sm text-accent mt-0.5 font-medium">{work.role}</p>
         </div>
-        <span className="text-xs font-mono text-muted whitespace-nowrap pt-0.5">
+        <span className="text-xs font-mono text-muted whitespace-nowrap pt-0.5 bg-surface-2
+                         px-2.5 py-1 rounded-full border border-border">
           {work.period}
         </span>
       </div>
@@ -46,15 +48,15 @@ export function WorkCard({ work }: WorkCardProps) {
             {work.projects.map((project) => (
               <div
                 key={project.name}
-                className="bg-surface-2 border border-border rounded-md p-4"
+                className="bg-accent-light border border-accent/15 rounded-lg p-4"
               >
-                <p className="text-sm font-medium text-foreground mb-1.5">
+                <p className="text-sm font-semibold text-accent mb-1.5">
                   {project.url ? (
                     <a
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-accent transition-colors"
+                      className="hover:underline"
                     >
                       {project.name} ↗
                     </a>
@@ -62,7 +64,7 @@ export function WorkCard({ work }: WorkCardProps) {
                     project.name
                   )}
                 </p>
-                <p className="text-xs text-muted leading-relaxed">
+                <p className="text-xs text-foreground/60 leading-relaxed">
                   {project.description}
                 </p>
               </div>
@@ -76,7 +78,8 @@ export function WorkCard({ work }: WorkCardProps) {
         {work.tags.map((tag) => (
           <span
             key={tag}
-            className="px-2 py-0.5 text-xs font-mono text-muted bg-surface-2 border border-border rounded"
+            className="px-2 py-0.5 text-xs font-mono text-accent bg-accent-light
+                       border border-accent/15 rounded-full"
           >
             {tag}
           </span>

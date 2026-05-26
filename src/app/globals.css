@@ -3,34 +3,53 @@
 /* ─── Design Tokens ─────────────────────────────────────────────────── */
 
 :root {
-  --background: #0c0c0c;
-  --surface:    #141414;
-  --surface-2:  #1c1c1c;
-  --border:     rgba(255, 255, 255, 0.08);
-  --foreground: #f0f0f0;
-  --muted:      #6b6b6b;
-  --accent:     #e8e8e8;
+  --background:    #f7f6f3;
+  --surface:       #ffffff;
+  --surface-2:     #edecea;
+  --border:        rgba(0, 0, 0, 0.09);
+  --foreground:    #1c1c1c;
+  --muted:         #787878;
+  --accent:        #3b5bdb;
+  --accent-light:  #eef1ff;
 
   --page-padding-x: clamp(1.25rem, 5vw, 3rem);
   --max-content:    72rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-surface:    var(--surface);
-  --color-surface-2:  var(--surface-2);
-  --color-border:     var(--border);
-  --color-foreground: var(--foreground);
-  --color-muted:      var(--muted);
-  --color-accent:     var(--accent);
+  --color-background:   var(--background);
+  --color-surface:      var(--surface);
+  --color-surface-2:    var(--surface-2);
+  --color-border:       var(--border);
+  --color-foreground:   var(--foreground);
+  --color-muted:        var(--muted);
+  --color-accent:       var(--accent);
+  --color-accent-light: var(--accent-light);
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ─── Dark mode overrides ────────────────────────────────────────────── */
+
+.dark {
+  --background:    #0e0e0e;
+  --surface:       #161616;
+  --surface-2:     #1f1f1f;
+  --border:        rgba(255, 255, 255, 0.08);
+  --foreground:    #f0f0f0;
+  --muted:         #787878;
+  --accent:        #7b9fff;
+  --accent-light:  rgba(123, 159, 255, 0.12);
+}
+
 /* ─── Base ───────────────────────────────────────────────────────────── */
 
 html {
+  color-scheme: light;
+}
+
+html.dark {
   color-scheme: dark;
 }
 

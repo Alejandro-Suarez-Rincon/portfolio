@@ -2,22 +2,22 @@ import type { WorkExperience } from '@/types/routes';
 
 export const workExperience: WorkExperience[] = [
   {
-    slug: 'consugisoft',
-    company: 'CONSUGISOFT',
-    role: 'Developer & Technical Supervisor',
-    period: 'November 2024 – Present',
-    description:
-      'Full-stack development and live on-site technical supervision of an international competition scoring system that complies with FIG and USAG regulations. I implement features under real competition pressure and deploy fixes in real time during events across South America and Central America.',
-    tags: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Real-time'],
-  },
-  {
     slug: 'space-eyes',
     company: 'Space Eyes',
     role: 'Full Stack Developer',
-    period: '2025 – Present',
+    period: 'February 2026 – Present',
     description:
       'End-to-end product development — from requirements gathering and system architecture to frontend, backend, and cloud deployment. Responsible for the full lifecycle of each product shipped.',
     tags: ['Next.js', 'React', 'Python', 'FastAPI', 'PostgreSQL', 'Docker'],
+  },
+  {
+    slug: 'consugisoft',
+    company: 'CONSUGISOFT',
+    role: 'Developer & Technical Supervisor',
+    period: 'November 2024 – January 2026',
+    description:
+      'Full-stack development and live on-site technical supervision of an international competition scoring system that complies with FIG and USAG regulations. I implement features under real competition pressure and deploy fixes in real time during events across South America and Central America.',
+    tags: ['React', 'TypeScript', 'Python', 'FastAPI', 'PostgreSQL', 'Real-time'],
   },
   {
     slug: 'owlbytech',

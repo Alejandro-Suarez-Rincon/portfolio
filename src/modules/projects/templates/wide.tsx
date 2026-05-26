@@ -9,8 +9,15 @@ interface Props {
 export function WideTemplate({ project }: Props) {
   return (
     <article>
-      {/* Full-bleed hero — fuera del page-container intencionalmente */}
-      <div className="relative w-full h-[55vh] min-h-64 bg-surface-2 overflow-hidden">
+      {/* Full-bleed hero */}
+      <div className="relative w-full h-[55vh] min-h-72 overflow-hidden bg-gradient-to-br from-accent-light via-surface-2 to-surface">
+        {/* Decorative background pattern */}
+        <div className="absolute inset-0 flex items-center justify-center opacity-5">
+          <span className="font-mono font-black text-[20rem] text-accent leading-none select-none">
+            {project.name[0]}
+          </span>
+        </div>
+
         <Image
           src={project.thumbnail}
           alt={`${project.name} hero`}
@@ -19,19 +26,24 @@ export function WideTemplate({ project }: Props) {
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
+
+        {/* Gradient overlay for text legibility */}
+        <div className="absolute inset-0 bg-gradient-to-t from-foreground/60 via-foreground/10 to-transparent" />
+
+        {/* Overlaid title */}
         <div className="absolute bottom-0 left-0 right-0 page-container pb-10">
-          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-foreground drop-shadow-2xl">
+          <h1 className="text-4xl sm:text-5xl font-semibold tracking-tight text-white drop-shadow-lg">
             {project.name}
           </h1>
         </div>
       </div>
 
+      {/* Content below hero */}
       <div className="page-container py-12">
         <div className="flex flex-wrap items-center justify-between gap-4 mb-10">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground transition-colors font-medium"
           >
             <span aria-hidden="true">←</span> Back
           </Link>
@@ -39,7 +51,7 @@ export function WideTemplate({ project }: Props) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="px-2 py-0.5 text-xs font-mono text-muted bg-surface-2 border border-border rounded"
+                className="px-2.5 py-0.5 text-xs font-mono text-accent bg-accent-light border border-accent/20 rounded-full"
               >
                 {tag}
               </span>
@@ -48,21 +60,26 @@ export function WideTemplate({ project }: Props) {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+          {/* Description */}
           <div className="lg:col-span-2 space-y-6">
-            <p className="text-xl text-muted leading-relaxed">
-              {project.shortDescription}
-            </p>
+            <p className="text-xl text-muted leading-relaxed">{project.shortDescription}</p>
             <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
               {project.description}
             </p>
           </div>
 
+          {/* Sidebar: secondary images + links */}
           <aside className="space-y-4">
             {project.images.slice(0, 2).map((img, i) => (
               <div
                 key={img}
-                className="relative aspect-video rounded-lg overflow-hidden bg-surface-2 border border-border"
+                className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-accent-light to-surface-2 border border-border"
               >
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="font-mono text-3xl font-bold text-accent/15 select-none">
+                    {project.name[0]}
+                  </span>
+                </div>
                 <Image
                   src={img}
                   alt={`${project.name} — detail ${i + 1}`}
@@ -79,7 +96,7 @@ export function WideTemplate({ project }: Props) {
                   href={project.productionUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 bg-foreground text-background text-sm font-medium rounded-lg transition-opacity hover:opacity-90"
+                  className="flex items-center justify-between px-4 py-3 bg-accent text-white text-sm font-medium rounded-xl transition-opacity hover:opacity-90"
                 >
                   View live site <span aria-hidden="true">↗</span>
                 </a>
@@ -89,7 +106,7 @@ export function WideTemplate({ project }: Props) {
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between px-4 py-3 bg-surface border border-border text-sm text-muted rounded-lg transition-all hover:text-foreground hover:border-white/20"
+                  className="flex items-center justify-between px-4 py-3 bg-surface border border-border text-sm text-muted rounded-xl transition-all hover:border-accent/30 hover:text-accent"
                 >
                   Source code <span aria-hidden="true">↗</span>
                 </a>

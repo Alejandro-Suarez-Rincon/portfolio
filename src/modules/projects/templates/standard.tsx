@@ -6,6 +6,26 @@ interface Props {
   project: Project;
 }
 
+function ImageSlot({ src, alt, priority = false }: { src: string; alt: string; priority?: boolean }) {
+  return (
+    <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-gradient-to-br from-accent-light to-surface-2 border border-border">
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className="font-mono text-6xl font-bold text-accent/10 select-none">
+          {alt[0]}
+        </span>
+      </div>
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        className="object-cover"
+        priority={priority}
+        sizes="(max-width: 1200px) 100vw, 1152px"
+      />
+    </div>
+  );
+}
+
 export function StandardTemplate({ project }: Props) {
   const allImages = [project.thumbnail, ...project.images].filter(Boolean);
 
@@ -13,7 +33,7 @@ export function StandardTemplate({ project }: Props) {
     <article className="page-container py-16">
       <Link
         href="/"
-        className="inline-flex items-center gap-2 text-sm text-muted hover:text-foreground transition-colors mb-12"
+        className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground transition-colors mb-12 font-medium"
       >
         <span aria-hidden="true">←</span>
         Back to work
@@ -24,7 +44,7 @@ export function StandardTemplate({ project }: Props) {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-2 py-0.5 text-xs font-mono text-muted bg-surface-2 border border-border rounded"
+              className="px-2.5 py-0.5 text-xs font-mono text-accent bg-accent-light border border-accent/20 rounded-full"
             >
               {tag}
             </span>
@@ -36,26 +56,23 @@ export function StandardTemplate({ project }: Props) {
         <p className="text-lg text-muted">{project.shortDescription}</p>
       </header>
 
+      {/* Main image */}
       {allImages[0] && (
-        <div className="relative w-full aspect-video rounded-lg overflow-hidden bg-surface-2 border border-border mb-4">
-          <Image
-            src={allImages[0]}
-            alt={`${project.name} — main screenshot`}
-            fill
-            className="object-cover"
-            priority
-            sizes="(max-width: 1200px) 100vw, 1152px"
-          />
+        <div className="mb-4">
+          <ImageSlot src={allImages[0]} alt={`${project.name} — main screenshot`} priority />
         </div>
       )}
 
+      {/* Gallery grid */}
       {allImages.length > 1 && (
         <div className="grid grid-cols-2 gap-4 mb-12">
           {allImages.slice(1).map((img, i) => (
-            <div
-              key={img}
-              className="relative aspect-video rounded-lg overflow-hidden bg-surface-2 border border-border"
-            >
+            <div key={img} className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-accent-light to-surface-2 border border-border">
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="font-mono text-4xl font-bold text-accent/10 select-none">
+                  {project.name[0]}
+                </span>
+              </div>
               <Image
                 src={img}
                 alt={`${project.name} — screenshot ${i + 2}`}
@@ -68,9 +85,10 @@ export function StandardTemplate({ project }: Props) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 mt-8">
+        {/* Description */}
         <div className="lg:col-span-2">
-          <h2 className="text-xs font-mono tracking-widest uppercase text-muted mb-4">
+          <h2 className="text-xs font-mono tracking-widest uppercase text-accent mb-4 font-semibold">
             About the project
           </h2>
           <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
@@ -78,8 +96,9 @@ export function StandardTemplate({ project }: Props) {
           </p>
         </div>
 
+        {/* Links sidebar */}
         <aside className="flex flex-col gap-3">
-          <h2 className="text-xs font-mono tracking-widest uppercase text-muted mb-1">
+          <h2 className="text-xs font-mono tracking-widest uppercase text-accent mb-1 font-semibold">
             Links
           </h2>
           {project.productionUrl && (
@@ -87,7 +106,7 @@ export function StandardTemplate({ project }: Props) {
               href={project.productionUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg text-sm text-foreground transition-all hover:border-white/20 hover:bg-surface-2"
+              className="inline-flex items-center justify-between px-4 py-3 bg-accent text-white rounded-xl text-sm font-medium transition-opacity hover:opacity-90"
             >
               Live site <span aria-hidden="true">↗</span>
             </a>
@@ -97,7 +116,7 @@ export function StandardTemplate({ project }: Props) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-lg text-sm text-muted transition-all hover:border-white/20 hover:text-foreground"
+              className="inline-flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-xl text-sm text-muted transition-all hover:border-accent/30 hover:text-accent"
             >
               GitHub <span aria-hidden="true">↗</span>
             </a>

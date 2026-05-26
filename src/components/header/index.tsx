@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import type { NavItem } from '@/types/routes';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const NAV_ITEMS: NavItem[] = [
   { label: 'Experience', href: '/#experience' },
@@ -9,17 +10,17 @@ const NAV_ITEMS: NavItem[] = [
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md shadow-sm">
       <div className="page-container flex h-14 items-center justify-between">
         <Link
           href="/"
-          className="font-mono text-sm font-medium tracking-widest text-foreground uppercase transition-colors hover:text-accent"
+          className="font-mono text-sm font-semibold text-accent tracking-wide transition-colors hover:text-foreground"
         >
           Juan Alejandro Suarez Rincon
         </Link>
 
         <nav aria-label="Main navigation">
-          <ul className="flex items-center gap-6 list-none m-0 p-0">
+          <ul className="flex items-center gap-5 list-none m-0 p-0">
             {NAV_ITEMS.map((item) => (
               <li key={item.href}>
                 <Link
@@ -30,6 +31,9 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <ThemeToggle />
+            </li>
           </ul>
         </nav>
       </div>
