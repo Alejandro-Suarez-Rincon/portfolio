@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { projects } from '@/data/projects';
 import { workExperience } from '@/data/work';
+import { education } from '@/data/education';
 import { ProjectCard } from '@/components/project-card';
 import { WorkCard } from '@/components/work-card';
+import { EducationCard } from '@/components/education-card';
 
 const SKILLS = [
   { category: 'Languages',      items: ['TypeScript', 'Python', 'Go', 'Java'] },
@@ -120,6 +122,24 @@ export default function HomePage() {
             </p>
           </div>
         )}
+      </section>
+
+      {/* ── Education ───────────────────────────────────────────────── */}
+      <section id="education" className="page-container pb-24">
+        <div className="flex items-baseline justify-between mb-10 border-t border-border pt-10">
+          <h2 className="text-sm font-mono text-accent tracking-widest uppercase font-semibold">
+            Education
+          </h2>
+          <span className="text-xs font-mono text-muted">
+            {education.length} entries
+          </span>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+          {education.map((entry) => (
+            <EducationCard key={entry.institution} education={entry} />
+          ))}
+        </div>
       </section>
 
       {/* ── Contact ─────────────────────────────────────────────────── */}

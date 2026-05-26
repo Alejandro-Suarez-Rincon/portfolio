@@ -25,11 +25,10 @@ export const workExperience: WorkExperience[] = [
     role: 'Full Stack Developer',
     period: 'February 2024 – September 2024',
     description:
-      'Worked across two concurrent SaaS products — Zacal.co and Optitech — handling frontend and backend development, database design, and business logic implementation. TypeScript + Next.js on the frontend, Go (Fiber) on the backend, PostgreSQL managed via SQLC for type-safe queries.',
+      'Worked across two concurrent SaaS products — Zacal and Optitech — handling frontend and backend development, database design, and business logic implementation. TypeScript + Next.js on the frontend, Go (Fiber) on the backend, PostgreSQL managed via SQLC for type-safe queries.',
     projects: [
       {
-        name: 'Zacal.co',
-        url: 'https://zacal.co',
+        name: 'Zacal',
         description:
           'Business management platform. Responsible for frontend architecture in TypeScript + Next.js, backend endpoints in Go, and database schema design.',
       },

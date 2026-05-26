@@ -30,6 +30,14 @@ export interface WorkExperience {
   companyUrl?: string;
 }
 
+export interface Education {
+  institution: string;
+  degree: string;
+  period: string;
+  status?: string;
+  description?: string;
+}
+
 export interface NavItem {
   label: string;
   href: string;
