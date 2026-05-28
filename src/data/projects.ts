@@ -35,25 +35,25 @@ Stack: TypeScript · WebSockets · Node.js`,
     images: [],
     tags: ['TypeScript', 'WebSockets', 'Node.js', 'Real-time'],
     githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/chatNotification',
-    template: 'standard',
+    template: 'wide',
   },
   {
     slug: 'calculadora-ia',
     name: 'CalculadoraIA — Vision Math Solver',
     shortDescription:
-      'Computer vision app that detects and solves mathematical equations from a live webcam feed using neural networks.',
-    description: `CalculadoraIA uses a trained neural network to recognize handwritten numbers and mathematical symbols in real time from webcam input, then evaluates and displays the result — no keyboard required.
+      'Point your camera at a sheet of paper, write a math operation, and the AI solves it in real time.',
+    description: `CalculadoraIA captures live video and solves handwritten math operations on a sheet of paper — no keyboard, no traditional UI.
 
-Built with TensorFlow for model training and inference, and OpenCV for frame capture and preprocessing. The models are pre-trained and bundled with the project, so it runs offline without any cloud dependency.
+At startup, the user clicks the 4 corners of a sheet of paper. OpenCV applies a perspective correction and divides the area into three detection zones: first number, operator, and second number. Two convolutional neural networks process each zone independently: one trained on MNIST for digits 0–9, and another trained on a custom dataset for the operators + - × ÷. When both models exceed the confidence threshold, the result is rendered as an overlay in real time.
 
-An exploration of computer vision and applied machine learning — from image preprocessing and model training to real-time inference in a live video feed.
+The models are pre-trained and bundled in the repository, so the project runs fully offline with a single command.
 
-Stack: Python · TensorFlow · OpenCV · NumPy`,
+Stack: Python · TensorFlow · Keras · OpenCV · NumPy`,
     thumbnail: '/images/projects/calculadora-ia-thumb.png',
     images: [],
     tags: ['Python', 'TensorFlow', 'OpenCV', 'Machine Learning', 'Computer Vision'],
     githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/calculadoraIA',
-    template: 'minimal',
+    template: 'wide',
   },
   {
     slug: 'impuesto-vehicular',
@@ -71,6 +71,6 @@ Stack: Java · Jakarta EE · Wildfly · Angular`,
     images: [],
     tags: ['Java', 'Jakarta EE', 'Angular', 'Wildfly'],
     githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/impuestoVehicular',
-    template: 'minimal',
+    template: 'wide',
   },
 ];
