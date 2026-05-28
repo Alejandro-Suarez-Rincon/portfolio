@@ -7,14 +7,20 @@ export const projects: Project[] = [
     slug: 'kitsune-test',
     name: 'Kitsune — ETL & Data Explorer',
     shortDescription:
-      'Full-stack data pipeline that ingests public Colombian government data, processes it, and exposes it through a REST API and Next.js interface.',
-    description: `Kitsune is an ETL (Extract, Transform, Load) system built on top of Colombia's open government data portal (datos.gov.co).
+      'End-to-end data pipeline that ingests Colombian open government data, stores it in PostgreSQL, and surfaces it through a FastAPI and an analytics dashboard.',
+    description: `Kitsune is a full-stack ETL and data exploration platform built on top of Colombia's open government data portal (datos.gov.co). The dataset tracks Colombian nationals imprisoned abroad — their country of detention, crime type, legal status, age group, consulate, and headcount.
 
-The pipeline pulls structured datasets, processes and normalizes them with Python, persists them in PostgreSQL via SQLAlchemy ORM, and serves them through a FastAPI REST API with interactive Swagger and ReDoc documentation.
+The pipeline is split into three independent layers:
 
-The frontend is a Next.js + TailwindCSS interface that lets users search and explore the data with filters by ID, crime type, and date range. The entire stack runs locally or in production with Docker Compose — single command to get a working environment.
+ETL — A Python script fetches records from the government's REST API, normalizes inconsistent field names (e.g. fecha_publicaci_n → fecha_publicacion), casts types, and bulk-inserts into PostgreSQL using psycopg2's execute_values for efficiency. The script is idempotent and runs in its own virtual environment.
 
-Stack: FastAPI · SQLAlchemy · PostgreSQL · Next.js · TailwindCSS · Docker Compose`,
+API — A FastAPI service exposes the data through four endpoints: list all records (paginated), retrieve by ID, filter by publication date, and full-text search by crime keyword. SQLAlchemy ORM handles all database interaction. Swagger and ReDoc documentation are auto-generated and available out of the box.
+
+Dashboard — A Next.js frontend built with Tailwind CSS and Recharts. The interface features a stats bar (total records, unique countries, gender count, cumulative headcount), five combinable filters (crime keyword, country, gender, age group, legal status), a sortable data table, and three reactive charts — a horizontal bar chart of headcount by country, a bar chart of records by crime type, and a pie chart of gender distribution. All charts update live as filters are applied.
+
+The entire stack — PostgreSQL, FastAPI, and the Next.js frontend — is orchestrated with Docker Compose and a single shell script handles environment setup, dependency installation, ETL execution, and server startup automatically.
+
+Stack: Python · FastAPI · SQLAlchemy · PostgreSQL · psycopg2 · Next.js · Recharts · TailwindCSS · Docker Compose`,
     thumbnail: '/images/projects/kitsune-thumb.png',
     images: [],
     tags: ['Python', 'FastAPI', 'PostgreSQL', 'Next.js', 'Docker', 'ETL'],
@@ -53,24 +59,6 @@ Stack: Python · TensorFlow · Keras · OpenCV · NumPy`,
     images: [],
     tags: ['Python', 'TensorFlow', 'OpenCV', 'Machine Learning', 'Computer Vision'],
     githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/calculadoraIA',
-    template: 'wide',
-  },
-  {
-    slug: 'impuesto-vehicular',
-    name: 'Impuesto Vehicular',
-    shortDescription:
-      'Full-stack vehicle tax administration system with a Java/Jakarta EE backend and Angular frontend.',
-    description: `A vehicle tax management system built with a clear separation between backend and frontend layers.
-
-The backend runs on Java with Jakarta EE on a Wildfly application server, handling the business logic for tax calculation, vehicle registration, and payment records. The frontend is an Angular application that provides the user interface for administrators and vehicle owners.
-
-Released under the MIT license. An early project that reflects enterprise Java development practices and multi-tier architecture.
-
-Stack: Java · Jakarta EE · Wildfly · Angular`,
-    thumbnail: '/images/projects/impuesto-vehicular-thumb.png',
-    images: [],
-    tags: ['Java', 'Jakarta EE', 'Angular', 'Wildfly'],
-    githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/impuestoVehicular',
     template: 'wide',
   },
 ];
