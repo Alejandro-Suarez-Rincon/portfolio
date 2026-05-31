@@ -17,6 +17,7 @@ export const es: Translations = {
     backend: 'Backend',
     data: 'Datos',
     infrastructure: 'Infraestructura',
+    ai: 'IA / ML',
   },
   sections: {
     workExperience: 'Experiencia Laboral',
@@ -35,6 +36,7 @@ export const es: Translations = {
     sendMessage: 'Enviar mensaje ↗',
     openChat: 'Abrir chat ↗',
     callDirectly: 'Llamar directamente ↗',
+    viewProfile: 'Ver perfil ↗',
   },
   projectTemplate: {
     back: 'Volver',

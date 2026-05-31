@@ -9,14 +9,15 @@ import { WorkCard } from '@/components/work-card';
 import { EducationCard } from '@/components/education-card';
 import { useLanguage } from '@/i18n';
 
-const SKILL_KEYS = ['languages', 'frontend', 'backend', 'data', 'infrastructure'] as const;
+const SKILL_KEYS = ['languages', 'frontend', 'backend', 'data', 'infrastructure', 'ai'] as const;
 
 const SKILL_ITEMS: Record<typeof SKILL_KEYS[number], string[]> = {
-  languages:      ['TypeScript', 'Python', 'Go', 'Java'],
+  languages:      ['TypeScript', 'Python', 'Go', 'Rust'],
   frontend:       ['React', 'Next.js', 'TailwindCSS'],
-  backend:        ['FastAPI', 'Go Fiber', 'REST APIs'],
-  data:           ['PostgreSQL', 'MySQL', 'SQLC', 'Big Data'],
-  infrastructure: ['Docker', 'CI/CD', 'Cloud Deployment'],
+  backend:        ['FastAPI', 'Go Fiber', 'Express', 'Socket.io'],
+  data:           ['PostgreSQL', 'SQLAlchemy', 'SQLC', 'Big Data'],
+  infrastructure: ['Docker', 'Linux', 'Networking', 'CI/CD'],
+  ai:             ['TensorFlow', 'Keras', 'OpenCV', 'NumPy'],
 };
 
 export default function HomePage() {
@@ -67,7 +68,7 @@ export default function HomePage() {
             <div className="relative">
               {/* Glow ring */}
               <div className="absolute -inset-2 rounded-3xl bg-gradient-to-br from-accent/20 to-accent/5 blur-lg" />
-              <div className="relative w-44 h-52 sm:w-52 sm:h-64 rounded-3xl overflow-hidden
+              <div className="relative w-52 h-64 sm:w-64 sm:h-80 rounded-3xl overflow-hidden
                               bg-surface border-2 border-accent/20 shadow-xl">
                 <Image
                   src="/images/profile.jpg"
@@ -75,6 +76,7 @@ export default function HomePage() {
                   fill
                   className="object-cover object-top"
                   priority
+                  sizes="(max-width: 640px) 208px, 256px"
                 />
               </div>
             </div>
@@ -158,7 +160,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {/* Email */}
           <a
             href="mailto:alejandrosuarez2032002@gmail.com"
@@ -195,6 +197,28 @@ export default function HomePage() {
               <p className="text-sm text-foreground font-medium mb-1">+57 300 549 1299</p>
               <p className="text-xs text-muted group-hover:text-accent transition-colors">
                 {t.contact.openChat}
+              </p>
+            </div>
+          </a>
+
+          {/* LinkedIn */}
+          <a
+            href="https://www.linkedin.com/in/alejandro-suarez-072899277/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group flex flex-col justify-between p-5 bg-surface border border-border rounded-xl
+                       shadow-sm transition-all duration-200 hover:border-accent/30 hover:shadow-md"
+          >
+            <div className="w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center mb-5">
+              <svg className="text-blue-600 w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+              </svg>
+            </div>
+            <div>
+              <p className="text-xs font-mono text-muted tracking-widest uppercase mb-1.5">LinkedIn</p>
+              <p className="text-sm text-foreground font-medium mb-1">Juan Alejandro Suarez</p>
+              <p className="text-xs text-muted group-hover:text-accent transition-colors">
+                {t.contact.viewProfile}
               </p>
             </div>
           </a>

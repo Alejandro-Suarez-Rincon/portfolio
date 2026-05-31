@@ -17,6 +17,7 @@ export interface Translations {
     backend: string;
     data: string;
     infrastructure: string;
+    ai: string;
   };
   sections: {
     workExperience: string;
@@ -35,6 +36,7 @@ export interface Translations {
     sendMessage: string;
     openChat: string;
     callDirectly: string;
+    viewProfile: string;
   };
   projectTemplate: {
     back: string;
