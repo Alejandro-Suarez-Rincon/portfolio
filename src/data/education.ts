@@ -5,13 +5,13 @@ export const education: Education[] = [
     institution: 'Corporación Universitaria Minuto de Dios',
     degree: 'Big Data Specialization',
     period: 'March 2025 – March 2026',
-    status: 'Completed',
+    status: 'Graduated',
     description:
       'Specialization focused on large-scale data processing, distributed systems, and data engineering pipelines.',
     translations: {
       es: {
         degree: 'Especialización en Big Data',
-        status: 'Completada',
+        status: 'Graduado',
         description:
           'Especialización enfocada en procesamiento de datos a gran escala, sistemas distribuidos y pipelines de ingeniería de datos.',
       },
