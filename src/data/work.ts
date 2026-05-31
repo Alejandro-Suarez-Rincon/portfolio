@@ -7,8 +7,8 @@ export const workExperience: WorkExperience[] = [
     role: 'Full Stack Developer',
     period: 'February 2026 – Present',
     description:
-      'End-to-end product development — from requirements gathering and system architecture to frontend, backend, and cloud deployment. Responsible for the full lifecycle of each product shipped.',
-    tags: ['Next.js', 'React', 'Python', 'FastAPI', 'PostgreSQL', 'Docker'],
+      'Full-stack developer on Morpheus, an anti-drone defense system. I take the tools and exploits developed by the team and turn them into a cohesive, operational product — wiring together detection, interception, and control layers into a system that works end-to-end under real conditions. A core part of the role is bridging software and hardware: I configure the machines that run the system in the field, adapt them to the specific requirements of each deployment, and ensure the software stack integrates reliably with the physical components. Backend logic and system-level tooling are built in Rust and Python; the operator-facing interface is built in React.',
+    tags: ['Rust', 'Python', 'React', 'Hardware Integration', 'Linux', 'Networking'],
   },
   {
     slug: 'consugisoft',

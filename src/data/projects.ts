@@ -29,17 +29,23 @@ Stack: Python · FastAPI · SQLAlchemy · PostgreSQL · psycopg2 · Next.js · R
   },
   {
     slug: 'chat-notification',
-    name: 'Chat & Notification System',
+    name: 'ChatRoom — Local WiFi Multi-Channel Chat',
     shortDescription:
-      'Real-time chat application with WebSocket-powered messaging and a push notification layer, built in TypeScript.',
-    description: `A real-time communication system with two core features working in tandem: a live chat powered by WebSockets for zero-latency message delivery, and a notification layer that alerts users of incoming messages even when they're not actively viewing the chat.
+      'Real-time multi-channel chat over local WiFi — no accounts, no cloud. WebSocket messaging with per-channel toast notifications.',
+    description: `ChatRoom is a real-time multi-channel chat that runs entirely on a local WiFi network — no internet, no accounts, no server in the cloud. Anyone on the same network opens the app, picks a username, and can join or create channels and exchange messages instantly.
 
-Built entirely in TypeScript, the project explores bidirectional communication patterns and event-driven UI updates without full-page reloads.
+The project is a TypeScript monorepo with two independent packages:
 
-Stack: TypeScript · WebSockets · Node.js`,
+Core (backend) — An Express server with Socket.io handles all real-time communication. Clients emit a join room event to subscribe to a channel, then exchange messages through a message:server → message:client event pair that broadcasts to every socket in that room. The server reads its allowed CORS origin from an environment variable so it works from any IP on the local network.
+
+Web (frontend) — A Next.js 14 App Router frontend styled with Tailwind CSS and NextUI. State is managed with a useReducer hook that tracks message history and unread counts per channel. When a message arrives in a channel the user is not currently viewing, Sonner fires a toast notification with the sender and message preview. Each username is mapped to a deterministic color from a 10-slot palette using a simple hash, so the same person always appears in the same color across all sessions.
+
+The entire stack spins up with a single command: ./run.sh auto-detects the machine's local IP, writes the .env file, and starts both services via Docker Compose. Accessible at http://{ip}:3000 from any device on the network.
+
+Stack: TypeScript · Next.js 14 · React · Socket.io · Express · Node.js · NextUI · Tailwind CSS · Sonner · Docker Compose`,
     thumbnail: '/images/projects/chat-thumb.png',
     images: [],
-    tags: ['TypeScript', 'WebSockets', 'Node.js', 'Real-time'],
+    tags: ['TypeScript', 'Next.js', 'Socket.io', 'Express', 'Node.js', 'Real-time', 'Docker'],
     githubUrl: 'https://github.com/Alejandro-Suarez-Rincon/chatNotification',
     template: 'wide',
   },
