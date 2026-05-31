@@ -2,9 +2,11 @@
 
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
+import { useLanguage } from '@/i18n';
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const { t } = useLanguage();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -18,7 +20,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(isDark ? 'light' : 'dark')}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      aria-label={isDark ? t.themeToggle.switchToLight : t.themeToggle.switchToDark}
       className="w-8 h-8 flex items-center justify-center rounded-lg text-muted
                  transition-colors hover:text-foreground hover:bg-surface-2"
     >

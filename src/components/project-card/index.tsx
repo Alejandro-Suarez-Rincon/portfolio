@@ -1,9 +1,15 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import type { Project } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
+import type { Locale } from '@/i18n';
 
 interface ProjectCardProps {
   project: Project;
+  index?: number;
+  locale?: Locale;
 }
 
 const GRADIENT_MAP: Record<number, string> = {
@@ -13,8 +19,12 @@ const GRADIENT_MAP: Record<number, string> = {
   3: 'from-amber-100 to-orange-50',
 };
 
-export function ProjectCard({ project, index = 0 }: ProjectCardProps & { index?: number }) {
+export function ProjectCard({ project, index = 0, locale: localeProp }: ProjectCardProps) {
+  const { t, locale: ctxLocale } = useLanguage();
+  const locale = localeProp ?? ctxLocale;
   const gradient = GRADIENT_MAP[index % 4];
+
+  const shortDescription = getLocalizedField(project, 'shortDescription', locale);
 
   return (
     <Link
@@ -66,12 +76,12 @@ export function ProjectCard({ project, index = 0 }: ProjectCardProps & { index?:
         </h3>
 
         <p className="text-sm text-muted leading-relaxed line-clamp-2">
-          {project.shortDescription}
+          {shortDescription}
         </p>
 
         <div className="mt-4 flex items-center gap-1 text-xs text-muted
                         transition-all group-hover:text-accent group-hover:gap-2">
-          <span>View project</span>
+          <span>{t.projectCard.viewProject}</span>
           <span aria-hidden="true">→</span>
         </div>
       </div>

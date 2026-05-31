@@ -1,16 +1,32 @@
+'use client';
+
 import type { Education } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
+import type { Locale } from '@/i18n';
 
 interface EducationCardProps {
   education: Education;
+  locale?: Locale;
 }
 
-export function EducationCard({ education }: EducationCardProps) {
+export function EducationCard({ education, locale: localeProp }: EducationCardProps) {
+  const { locale: ctxLocale } = useLanguage();
+  const locale = localeProp ?? ctxLocale;
+
+  const degree = getLocalizedField(education, 'degree', locale);
+  const status = education.status
+    ? (getLocalizedField(education, 'status', locale) ?? education.status)
+    : undefined;
+  const description = education.description
+    ? (getLocalizedField(education, 'description', locale) ?? education.description)
+    : undefined;
+
   return (
     <div className="bg-surface border border-border rounded-xl p-6 flex flex-col gap-4 shadow-sm">
       <div className="flex items-start justify-between gap-4">
         <div>
           <h3 className="text-base font-semibold text-foreground leading-snug">
-            {education.degree}
+            {degree}
           </h3>
           <p className="text-sm text-accent mt-0.5 font-medium">
             {education.institution}
@@ -22,16 +38,16 @@ export function EducationCard({ education }: EducationCardProps) {
         </span>
       </div>
 
-      {education.status && (
+      {status && (
         <span className="self-start px-2.5 py-0.5 text-xs font-mono rounded-full
                          text-accent bg-accent-light border border-accent/20">
-          {education.status}
+          {status}
         </span>
       )}
 
-      {education.description && (
+      {description && (
         <p className="text-sm text-foreground/70 leading-relaxed">
-          {education.description}
+          {description}
         </p>
       )}
     </div>

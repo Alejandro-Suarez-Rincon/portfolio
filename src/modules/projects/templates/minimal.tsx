@@ -1,11 +1,19 @@
+'use client';
+
 import Link from 'next/link';
 import type { Project } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
 
 interface Props {
   project: Project;
 }
 
 export function MinimalTemplate({ project }: Props) {
+  const { t, locale } = useLanguage();
+
+  const shortDescription = getLocalizedField(project, 'shortDescription', locale);
+  const description = getLocalizedField(project, 'description', locale);
+
   return (
     <article className="page-container py-16">
       <Link
@@ -13,7 +21,7 @@ export function MinimalTemplate({ project }: Props) {
         className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground transition-colors mb-16 font-medium"
       >
         <span aria-hidden="true">←</span>
-        Back to work
+        {t.projectTemplate.backToWork}
       </Link>
 
       <div className="max-w-2xl">
@@ -33,11 +41,11 @@ export function MinimalTemplate({ project }: Props) {
         </h1>
 
         <p className="text-xl text-muted leading-relaxed mb-10 border-b border-border pb-10">
-          {project.shortDescription}
+          {shortDescription}
         </p>
 
         <p className="text-base text-foreground/80 leading-[1.8] whitespace-pre-line mb-12">
-          {project.description}
+          {description}
         </p>
 
         <div className="flex flex-wrap gap-3">
@@ -48,7 +56,7 @@ export function MinimalTemplate({ project }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent text-white text-sm font-medium rounded-xl transition-opacity hover:opacity-90"
             >
-              Live site <span aria-hidden="true">↗</span>
+              {t.projectTemplate.viewLiveSite}
             </a>
           )}
           {project.githubUrl && (
@@ -58,7 +66,7 @@ export function MinimalTemplate({ project }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-surface border border-border text-sm text-muted rounded-xl transition-all hover:border-accent/30 hover:text-accent"
             >
-              GitHub <span aria-hidden="true">↗</span>
+              {t.projectTemplate.github}
             </a>
           )}
         </div>

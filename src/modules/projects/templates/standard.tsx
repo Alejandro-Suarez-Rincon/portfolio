@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Project } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
 
 interface Props {
   project: Project;
@@ -27,7 +30,11 @@ function ImageSlot({ src, alt, priority = false }: { src: string; alt: string; p
 }
 
 export function StandardTemplate({ project }: Props) {
+  const { t, locale } = useLanguage();
   const allImages = [project.thumbnail, ...project.images].filter(Boolean);
+
+  const shortDescription = getLocalizedField(project, 'shortDescription', locale);
+  const description = getLocalizedField(project, 'description', locale);
 
   return (
     <article className="page-container py-16">
@@ -36,7 +43,7 @@ export function StandardTemplate({ project }: Props) {
         className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground transition-colors mb-12 font-medium"
       >
         <span aria-hidden="true">←</span>
-        Back to work
+        {t.projectTemplate.backToWork}
       </Link>
 
       <header className="mb-10">
@@ -53,7 +60,7 @@ export function StandardTemplate({ project }: Props) {
         <h1 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground mb-3">
           {project.name}
         </h1>
-        <p className="text-lg text-muted">{project.shortDescription}</p>
+        <p className="text-lg text-muted">{shortDescription}</p>
       </header>
 
       {/* Main image */}
@@ -89,17 +96,17 @@ export function StandardTemplate({ project }: Props) {
         {/* Description */}
         <div className="lg:col-span-2">
           <h2 className="text-xs font-mono tracking-widest uppercase text-accent mb-4 font-semibold">
-            About the project
+            {t.projectTemplate.aboutTheProject}
           </h2>
           <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
-            {project.description}
+            {description}
           </p>
         </div>
 
         {/* Links sidebar */}
         <aside className="flex flex-col gap-3">
           <h2 className="text-xs font-mono tracking-widest uppercase text-accent mb-1 font-semibold">
-            Links
+            {t.projectTemplate.links}
           </h2>
           {project.productionUrl && (
             <a
@@ -108,7 +115,7 @@ export function StandardTemplate({ project }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-between px-4 py-3 bg-accent text-white rounded-xl text-sm font-medium transition-opacity hover:opacity-90"
             >
-              Live site <span aria-hidden="true">↗</span>
+              {t.projectTemplate.viewLiveSite}
             </a>
           )}
           {project.githubUrl && (
@@ -118,7 +125,7 @@ export function StandardTemplate({ project }: Props) {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-between px-4 py-3 bg-surface border border-border rounded-xl text-sm text-muted transition-all hover:border-accent/30 hover:text-accent"
             >
-              GitHub <span aria-hidden="true">↗</span>
+              {t.projectTemplate.github}
             </a>
           )}
         </aside>

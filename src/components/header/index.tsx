@@ -1,15 +1,20 @@
-import Link from 'next/link';
-import type { NavItem } from '@/types/routes';
-import { ThemeToggle } from '@/components/theme-toggle';
+'use client';
 
-const NAV_ITEMS: NavItem[] = [
-  { label: 'Experience', href: '/#experience' },
-  { label: 'Projects',   href: '/#projects' },
-  { label: 'Education',  href: '/#education' },
-  { label: 'Contact',    href: '/#contact' },
-];
+import Link from 'next/link';
+import { ThemeToggle } from '@/components/theme-toggle';
+import { LanguageToggle } from '@/components/language-toggle';
+import { useLanguage } from '@/i18n';
 
 export function Header() {
+  const { t } = useLanguage();
+
+  const NAV_ITEMS = [
+    { label: t.nav.experience, href: '/#experience' },
+    { label: t.nav.projects,   href: '/#projects' },
+    { label: t.nav.education,  href: '/#education' },
+    { label: t.nav.contact,    href: '/#contact' },
+  ];
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md shadow-sm">
       <div className="page-container flex h-14 items-center justify-between">
@@ -32,6 +37,9 @@ export function Header() {
                 </Link>
               </li>
             ))}
+            <li>
+              <LanguageToggle />
+            </li>
             <li>
               <ThemeToggle />
             </li>

@@ -1,12 +1,20 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Project } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
 
 interface Props {
   project: Project;
 }
 
 export function WideTemplate({ project }: Props) {
+  const { t, locale } = useLanguage();
+
+  const shortDescription = getLocalizedField(project, 'shortDescription', locale);
+  const description = getLocalizedField(project, 'description', locale);
+
   return (
     <article>
       {/* Full-bleed hero */}
@@ -45,7 +53,7 @@ export function WideTemplate({ project }: Props) {
             href="/"
             className="inline-flex items-center gap-2 text-sm text-accent hover:text-foreground transition-colors font-medium"
           >
-            <span aria-hidden="true">←</span> Back
+            <span aria-hidden="true">←</span> {t.projectTemplate.back}
           </Link>
           <div className="flex flex-wrap gap-1.5">
             {project.tags.map((tag) => (
@@ -62,9 +70,9 @@ export function WideTemplate({ project }: Props) {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
           {/* Description */}
           <div className="lg:col-span-2 space-y-6">
-            <p className="text-xl text-muted leading-relaxed">{project.shortDescription}</p>
+            <p className="text-xl text-muted leading-relaxed">{shortDescription}</p>
             <p className="text-base text-foreground/80 leading-relaxed whitespace-pre-line">
-              {project.description}
+              {description}
             </p>
           </div>
 
@@ -98,7 +106,7 @@ export function WideTemplate({ project }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 bg-accent text-white text-sm font-medium rounded-xl transition-opacity hover:opacity-90"
                 >
-                  View live site <span aria-hidden="true">↗</span>
+                  {t.projectTemplate.viewLiveSite}
                 </a>
               )}
               {project.githubUrl && (
@@ -108,7 +116,7 @@ export function WideTemplate({ project }: Props) {
                   rel="noopener noreferrer"
                   className="flex items-center justify-between px-4 py-3 bg-surface border border-border text-sm text-muted rounded-xl transition-all hover:border-accent/30 hover:text-accent"
                 >
-                  Source code <span aria-hidden="true">↗</span>
+                  {t.projectTemplate.sourceCode}
                 </a>
               )}
             </div>

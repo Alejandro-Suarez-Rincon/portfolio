@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import { projects } from '@/data/projects';
 import { workExperience } from '@/data/work';
@@ -5,16 +7,21 @@ import { education } from '@/data/education';
 import { ProjectCard } from '@/components/project-card';
 import { WorkCard } from '@/components/work-card';
 import { EducationCard } from '@/components/education-card';
+import { useLanguage } from '@/i18n';
 
-const SKILLS = [
-  { category: 'Languages',      items: ['TypeScript', 'Python', 'Go', 'Java'] },
-  { category: 'Frontend',       items: ['React', 'Next.js', 'TailwindCSS'] },
-  { category: 'Backend',        items: ['FastAPI', 'Go Fiber', 'REST APIs'] },
-  { category: 'Data',           items: ['PostgreSQL', 'MySQL', 'SQLC', 'Big Data'] },
-  { category: 'Infrastructure', items: ['Docker', 'CI/CD', 'Cloud Deployment'] },
-];
+const SKILL_KEYS = ['languages', 'frontend', 'backend', 'data', 'infrastructure'] as const;
+
+const SKILL_ITEMS: Record<typeof SKILL_KEYS[number], string[]> = {
+  languages:      ['TypeScript', 'Python', 'Go', 'Java'],
+  frontend:       ['React', 'Next.js', 'TailwindCSS'],
+  backend:        ['FastAPI', 'Go Fiber', 'REST APIs'],
+  data:           ['PostgreSQL', 'MySQL', 'SQLC', 'Big Data'],
+  infrastructure: ['Docker', 'CI/CD', 'Cloud Deployment'],
+};
 
 export default function HomePage() {
+  const { t, locale } = useLanguage();
+
   return (
     <>
       {/* ── Hero ───────────────────────────────────────────────────── */}
@@ -24,25 +31,23 @@ export default function HomePage() {
           {/* Left: intro */}
           <div className="max-w-xl">
             <p className="font-mono text-xs text-accent tracking-widest uppercase mb-4">
-              Full Stack Engineer · Colombia
+              {t.hero.tagline}
             </p>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.1] tracking-tight text-foreground mb-5">
               Juan Alejandro <br />
               Suarez Rincon
             </h1>
             <p className="text-base text-muted leading-relaxed mb-8">
-              Systems engineer building end-to-end products — from architecture
-              and database design to frontend interfaces and cloud infrastructure.
-              Currently specializing in Big Data.
+              {t.hero.bio}
             </p>
 
             {/* Skills */}
             <div className="space-y-2.5">
-              {SKILLS.map(({ category, items }) => (
-                <div key={category} className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-mono text-muted w-24 shrink-0">{category}</span>
+              {SKILL_KEYS.map((key) => (
+                <div key={key} className="flex flex-wrap items-center gap-2">
+                  <span className="text-xs font-mono text-muted w-24 shrink-0">{t.skills[key]}</span>
                   <div className="flex flex-wrap gap-1.5">
-                    {items.map((skill) => (
+                    {SKILL_ITEMS[key].map((skill) => (
                       <span
                         key={skill}
                         className="px-2 py-0.5 text-xs font-mono text-accent
@@ -82,16 +87,16 @@ export default function HomePage() {
       <section id="experience" className="page-container pb-24">
         <div className="flex items-baseline justify-between mb-10 border-t border-border pt-10">
           <h2 className="text-sm font-mono text-accent tracking-widest uppercase font-semibold">
-            Work Experience
+            {t.sections.workExperience}
           </h2>
           <span className="text-xs font-mono text-muted">
-            {workExperience.length} companies
+            {t.counters.companies(workExperience.length)}
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           {workExperience.map((work) => (
-            <WorkCard key={work.slug} work={work} />
+            <WorkCard key={work.slug} work={work} locale={locale} />
           ))}
         </div>
       </section>
@@ -100,11 +105,11 @@ export default function HomePage() {
       <section id="projects" className="page-container pb-24">
         <div className="flex items-baseline justify-between mb-10 border-t border-border pt-10">
           <h2 className="text-sm font-mono text-accent tracking-widest uppercase font-semibold">
-            Personal Projects
+            {t.sections.personalProjects}
           </h2>
           {projects.length > 0 && (
             <span className="text-xs font-mono text-muted">
-              {projects.length} projects
+              {t.counters.projects(projects.length)}
             </span>
           )}
         </div>
@@ -112,13 +117,13 @@ export default function HomePage() {
         {projects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {projects.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} index={i} />
+              <ProjectCard key={project.slug} project={project} index={i} locale={locale} />
             ))}
           </div>
         ) : (
           <div className="border-2 border-dashed border-accent/20 rounded-xl py-16 text-center bg-accent-light/40">
             <p className="text-sm text-muted font-mono">
-              Proyectos personales — próximamente.
+              {t.sections.comingSoon}
             </p>
           </div>
         )}
@@ -128,16 +133,16 @@ export default function HomePage() {
       <section id="education" className="page-container pb-24">
         <div className="flex items-baseline justify-between mb-10 border-t border-border pt-10">
           <h2 className="text-sm font-mono text-accent tracking-widest uppercase font-semibold">
-            Education
+            {t.sections.education}
           </h2>
           <span className="text-xs font-mono text-muted">
-            {education.length} entries
+            {t.counters.entries(education.length)}
           </span>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
           {education.map((entry) => (
-            <EducationCard key={entry.institution} education={entry} />
+            <EducationCard key={entry.institution} education={entry} locale={locale} />
           ))}
         </div>
       </section>
@@ -146,10 +151,10 @@ export default function HomePage() {
       <section id="contact" className="page-container pb-24">
         <div className="border-t border-border pt-10 mb-10">
           <h2 className="text-sm font-mono text-accent tracking-widest uppercase font-semibold mb-3">
-            Contact
+            {t.sections.contact}
           </h2>
           <p className="text-2xl sm:text-3xl font-semibold text-foreground max-w-md leading-snug">
-            Let&apos;s build something together.
+            {t.contact.headline}
           </p>
         </div>
 
@@ -169,7 +174,7 @@ export default function HomePage() {
                 alejandrosuarez2032002@gmail.com
               </p>
               <p className="text-xs text-muted group-hover:text-accent transition-colors">
-                Send a message ↗
+                {t.contact.sendMessage}
               </p>
             </div>
           </a>
@@ -189,7 +194,7 @@ export default function HomePage() {
               <p className="text-xs font-mono text-muted tracking-widest uppercase mb-1.5">WhatsApp</p>
               <p className="text-sm text-foreground font-medium mb-1">+57 300 549 1299</p>
               <p className="text-xs text-muted group-hover:text-accent transition-colors">
-                Open chat ↗
+                {t.contact.openChat}
               </p>
             </div>
           </a>
@@ -207,7 +212,7 @@ export default function HomePage() {
               <p className="text-xs font-mono text-muted tracking-widest uppercase mb-1.5">Phone</p>
               <p className="text-sm text-foreground font-medium mb-1">+57 300 549 1299</p>
               <p className="text-xs text-muted group-hover:text-accent transition-colors">
-                Call directly ↗
+                {t.contact.callDirectly}
               </p>
             </div>
           </a>

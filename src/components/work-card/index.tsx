@@ -1,10 +1,20 @@
+'use client';
+
 import type { WorkExperience } from '@/types/routes';
+import { useLanguage, getLocalizedField } from '@/i18n';
+import type { Locale } from '@/i18n';
 
 interface WorkCardProps {
   work: WorkExperience;
+  locale?: Locale;
 }
 
-export function WorkCard({ work }: WorkCardProps) {
+export function WorkCard({ work, locale: localeProp }: WorkCardProps) {
+  const { t, locale: ctxLocale } = useLanguage();
+  const locale = localeProp ?? ctxLocale;
+
+  const description = getLocalizedField(work, 'description', locale);
+
   return (
     <div className="bg-surface border border-border rounded-xl p-6 flex flex-col gap-5 shadow-sm
                     transition-all duration-200 hover:border-accent/25 hover:shadow-md">
@@ -35,40 +45,43 @@ export function WorkCard({ work }: WorkCardProps) {
 
       {/* Description */}
       <p className="text-sm text-foreground/70 leading-relaxed">
-        {work.description}
+        {description}
       </p>
 
       {/* Sub-projects */}
       {work.projects && work.projects.length > 0 && (
         <div className="space-y-3">
           <p className="text-xs font-mono text-muted tracking-widest uppercase">
-            Projects
+            {t.workCard.projectsLabel}
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {work.projects.map((project) => (
-              <div
-                key={project.name}
-                className="bg-accent-light border border-accent/15 rounded-lg p-4"
-              >
-                <p className="text-sm font-semibold text-accent mb-1.5">
-                  {project.url ? (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="hover:underline"
-                    >
-                      {project.name} ↗
-                    </a>
-                  ) : (
-                    project.name
-                  )}
-                </p>
-                <p className="text-xs text-foreground/60 leading-relaxed">
-                  {project.description}
-                </p>
-              </div>
-            ))}
+            {work.projects.map((project) => {
+              const projectDesc = getLocalizedField(project, 'description', locale);
+              return (
+                <div
+                  key={project.name}
+                  className="bg-accent-light border border-accent/15 rounded-lg p-4"
+                >
+                  <p className="text-sm font-semibold text-accent mb-1.5">
+                    {project.url ? (
+                      <a
+                        href={project.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:underline"
+                      >
+                        {project.name} ↗
+                      </a>
+                    ) : (
+                      project.name
+                    )}
+                  </p>
+                  <p className="text-xs text-foreground/60 leading-relaxed">
+                    {projectDesc}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
